@@ -12,4 +12,4 @@ pip install -e .
 
 Examples
 --------
-The model details and simulation runs can be found in the [example notebook](examples/model_simulation.ipynb).
+The model details and simulation runs can be found in the [example notebook](examples/).
