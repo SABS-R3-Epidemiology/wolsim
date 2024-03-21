@@ -4,7 +4,7 @@
 import copy
 import random
 import numpy as np
-from pde import FieldCollection, PDEBase, PlotTracker, ScalarField, UnitGrid
+from pde import FieldCollection, PDEBase, ScalarField, UnitGrid
 
 
 class AgentBasedModel:
@@ -69,6 +69,13 @@ class AgentBasedModel:
 
     def initialize_wolbachia(self, p=0.3):
         """Initialize the wolbachia grid.
+
+        Wolbachia are placed randomly, with probability p, in the 15x15 top left of the grid.
+
+        Parameters
+        ----------
+        p : float
+            probability of there being wolbachia in a cell
         """
         self.wolbachia_grid[:15, :15] = np.random.choice((0, 1), size=((15, 15)), p=[1-p, p])
         
