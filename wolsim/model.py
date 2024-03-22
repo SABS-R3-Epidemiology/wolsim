@@ -82,6 +82,16 @@ class AgentBasedModel:
         self.update_concentration()
         self.concentration_history.append(copy.deepcopy(self.conc_grid))
 
+    def initialize_wolbachia_barrier(self):
+        self.wolbachia_grid[7:13, :] = np.ones(self.wolbachia_grid[7:13, :].shape)
+
+        self.update_concentration()
+        self.concentration_history.append(copy.deepcopy(self.conc_grid))
+
+    def initialize_virus_barrier(self):
+        self.virus_grid[0][2, 10] = 1
+        self.virus_grid_history.append(copy.deepcopy(self.virus_grid))
+
     def initialize_virus(self, virus_num=0):
         """Initialize the virus grid.
         
