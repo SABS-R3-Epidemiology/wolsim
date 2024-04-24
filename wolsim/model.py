@@ -20,7 +20,7 @@ class AgentBasedModel:
             Number of grid cells in x direction
         n_y : int
             Number of grid cells in y direction
-        model : {'signalling', 'genetic'}
+        model : {'signalling', 'genetic', 'null'}
             Which variant of the model to run
         """
         self.n_x = n_x
@@ -31,6 +31,9 @@ class AgentBasedModel:
             self.model = model
         elif model == 'genetic':
             self.num_virus = 2
+            self.model = model
+        elif model == 'null':
+            self.num_virus = 1
             self.model = model
         else:
             raise ValueError('Model variant not recognized.')
@@ -205,7 +208,11 @@ class AgentBasedModel:
         else:
             growth = self.virus_growth_rate[k] \
                     * v * (1 - total_virus / self.virus_carrying_capacity[k])
-                
+            
+        if self.model == 'null':
+            if self.wolbachia_grid[i, j]:
+                growth = self.virus_growth_rate[k] \
+                    * v * (1 - total_virus / 0.1)
 
         if growth > 0:
             if self.num_virus == 1:
@@ -235,7 +242,7 @@ class AgentBasedModel:
         for k in range(self.num_virus):
             self.update_virus(k)
 
-        if self.num_virus == 1:
+        if self.model == 'signalling':
             self.update_concentration()
             self.concentration_history.append(copy.deepcopy(self.conc_grid))
 
